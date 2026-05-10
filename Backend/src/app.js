@@ -5,10 +5,8 @@ const authRoutes = require('./routes/auth.routes');
 const musicRoutes = require('./routes/music.routes');
 const app = express();
 
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174', 'https://lizzn.vercel.app', 'https://lizzn-qggx.onrender.com'], // Add common frontend origins, or use true to dynamically allow
-    credentials: true,
-}));
+app.use(cors());
+
 app.use(express.json());
 app.use(cookieParser());
 
