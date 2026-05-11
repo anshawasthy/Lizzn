@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
 
-  baseURL: 'https://lizzn-ggqx.onrender.com/',
+  baseURL: process.env.BASE_URL,
 
   withCredentials: true,
 });

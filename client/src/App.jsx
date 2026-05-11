@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from 'react';
+require('dotenv').config();
 import { AuthProvider, AuthContext } from './contexts/AuthContext';
 import { PlayerProvider } from './contexts/PlayerContext';
 import Home from "./pages/Home";
