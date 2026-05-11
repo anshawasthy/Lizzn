@@ -1,4 +1,4 @@
-const imageKit = require('@imagekit/nodejs');
+const imageKit = require('@imagekit/nodejs/index.js');
 
 const imagekitClient = new imageKit({
     privateKey: process.env.URI_IMAGEKIT,
