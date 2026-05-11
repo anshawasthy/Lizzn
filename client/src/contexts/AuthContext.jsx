@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
 
   const checkAuth = async () => {
     try {
-      const res = await api.get(`${import.meta.env.BASE_URL}/auth/me`);
+      const res = await api.get("/auth/me");
       setUser(res.data.user);
     } catch (err) {
       setUser(null);
