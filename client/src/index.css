@@ -1,45 +1,191 @@
 @import "tailwindcss";
 
+
+/* ─── Tailwind v4 Theme Tokens ─── */
 @theme {
-  --color-background: #0f0f13;
-  --color-surface: #1c1c24;
-  --color-primary: #8a2be2;
-  --color-primary-hover: #9932cc;
-  --color-text-primary: #f8f8f2;
-  --color-text-secondary: #a1a1aa;
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-primary: var(--accent);
+  --color-primary-hover: var(--accent-hover);
+  --color-text-primary: var(--text-1);
+  --color-text-secondary: var(--text-2);
+  --color-text-tertiary: var(--text-3);
+  --color-border: var(--border-color);
+  --color-border-subtle: var(--border-subtle-color);
+  --color-danger: #e53e3e;
+  --color-success: #38a169;
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+/* ═══════════════════════════════════════════
+   DARK THEME (default)
+   Matte charcoal palette — no glass, no blur.
+   ═══════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
+  --bg:                  #111113;
+  --surface:             #1a1a1f;
+  --surface-raised:      #222228;
+  --accent:              #a78bfa;
+  --accent-hover:        #c4b5fd;
+  --text-1:              #eeeef0;
+  --text-2:              #9393a0;
+  --text-3:              #5c5c6b;
+  --border-color:        #2a2a32;
+  --border-subtle-color: #222228;
+  --shadow-sm:           0 1px 2px rgba(0,0,0,.35);
+  --shadow-md:           0 4px 12px rgba(0,0,0,.4);
+  --shadow-lg:           0 8px 30px rgba(0,0,0,.5);
+  --scrollbar-track:     #111113;
+  --scrollbar-thumb:     #2a2a32;
+  --scrollbar-thumb-hover: #3a3a44;
+  color-scheme: dark;
+}
+
+/* ═══════════════════════════════════════════
+   LIGHT THEME
+   Warm stone palette — matte & paper-like.
+   ═══════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:                  #f5f3f0;
+  --surface:             #ffffff;
+  --surface-raised:      #edeae6;
+  --accent:              #7c3aed;
+  --accent-hover:        #6d28d9;
+  --text-1:              #1a1a1e;
+  --text-2:              #5e5e6e;
+  --text-3:              #9393a0;
+  --border-color:        #ddd9d4;
+  --border-subtle-color: #e8e4df;
+  --shadow-sm:           0 1px 3px rgba(0,0,0,.06);
+  --shadow-md:           0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg:           0 8px 30px rgba(0,0,0,.10);
+  --scrollbar-track:     #f5f3f0;
+  --scrollbar-thumb:     #ddd9d4;
+  --scrollbar-thumb-hover: #c8c4bf;
+  color-scheme: light;
+}
+
+/* ─── Base ─── */
 @layer base {
+  * {
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.15s ease,
+                box-shadow 0.2s ease;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-text-primary font-sans antialiased;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-.glass-panel {
-  @apply bg-surface/60 backdrop-blur-md border border-white/10 shadow-lg rounded-xl;
+/* ─── Utility Classes ─── */
+
+/* Matte card — solid surface, no blur, subtle border */
+.matte-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.matte-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
-.glass-input {
-  @apply bg-white/5 border border-white/10 text-text-primary placeholder:text-text-secondary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all;
+/* Matte input */
+.matte-input {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-color);
+  color: var(--text-1);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.matte-input::placeholder {
+  color: var(--text-3);
+}
+.matte-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+[data-theme="light"] .matte-input:focus {
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
 }
 
+/* Primary button */
 .btn-primary {
-  @apply bg-primary hover:bg-primary-hover text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(138,43,226,0.3)] hover:shadow-[0_0_25px_rgba(138,43,226,0.5)];
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:active {
+  transform: translateY(0);
 }
 
+/* Secondary / ghost button */
 .btn-secondary {
-  @apply bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-6 rounded-lg transition-all;
+  background: var(--surface-raised);
+  color: var(--text-1);
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--accent);
 }
 
-/* Custom Scrollbar */
+/* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full hover:bg-white/20;
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ─── Micro-animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+.animate-subtle-pulse {
+  animation: subtlePulse 2s ease-in-out infinite;
 }
