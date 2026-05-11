@@ -6,7 +6,7 @@ const musicRoutes = require('./routes/music.routes');
 const app = express();
 
 app.use(cors({
-    origin: "https://lizzn-music.vercel.app/",
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 
